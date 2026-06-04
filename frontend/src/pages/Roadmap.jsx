@@ -68,7 +68,7 @@ export default function Roadmap() {
         </div>
 
         {errorMsg && (
-          <div className="p-4 bg-red-50 border border-red-200 text-red-700 text-sm font-medium rounded">
+          <div className="form-error">
             ⚠️ {errorMsg}
           </div>
         )}
@@ -81,7 +81,7 @@ export default function Roadmap() {
       {loading && (
         <div className="loading-wrapper">
           <div className="loading-spinner"></div>
-          <p className="loading-text">Compiling path with Gemini-2.5-Flash pipeline...</p>
+          <p className="loading-text">Creating your roadmap..</p>
         </div>
       )}
 
@@ -89,7 +89,7 @@ export default function Roadmap() {
         <div className="output-display-card">
           <div className="output-header">
             <h3 className="output-title">Your Generated Roadmap</h3>
-            <span className="output-badge">Live Active Blueprint</span>
+            
           </div>
           <div className="output-text-content">{roadmapOutput}</div>
         </div>

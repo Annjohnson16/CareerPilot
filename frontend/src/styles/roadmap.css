@@ -50,8 +50,10 @@
 }
 
 /* Heavy Action Submit Buttons */
+/* Find this class in src/styles/roadmap.css and update it */
 .btn-submit {
-  @apply w-full bg-brand-navy text-white py-4 font-semibold text-sm tracking-wider uppercase hover:bg-opacity-90 transition-all duration-200 cursor-pointer disabled:opacity-50;
+  /* CHANGE hover:bg-opacity-90 TO hover:bg-brand-navy/90 */
+  @apply w-full bg-brand-navy text-white py-4 font-semibold text-sm tracking-wider uppercase hover:bg-brand-navy/90 transition-all duration-200 cursor-pointer disabled:opacity-50;
 }
 
 /* Processing Engine Async Spinner Elements */
@@ -80,10 +82,12 @@
   @apply font-serif text-2xl font-bold text-brand-navy;
 }
 
-.output-badge {
-  @apply text-xs bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-1 font-semibold uppercase;
-}
+
 
 .output-text-content {
   @apply text-brand-navy space-y-4 text-sm leading-relaxed whitespace-pre-wrap font-sans;
+}
+/* Add this to your src/styles/roadmap.css file */
+.form-error {
+  @apply p-4 bg-red-50 border border-red-200 text-red-700 text-sm font-medium rounded;
 }
