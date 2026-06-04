@@ -1,0 +1,18 @@
+@import "tailwindcss";
+
+
+@theme {
+  --color-brand-bg: #FAF6F0;
+  --color-brand-navy: #0B1325;
+  --color-brand-muted: #65625D;
+  
+  --font-serif: "Playfair Display", serif;
+  --font-sans: "Inter", sans-serif;
+}
+
+body {
+  background: linear-gradient(145deg, #FAF6F0 0%, #FFFFFF 100%);
+  color: #0B1325;
+  font-family: var(--font-sans);
+  min-height: 100vh;
+}

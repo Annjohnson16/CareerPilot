@@ -1,0 +1,41 @@
+@reference "./global.css";
+
+.animate-fadeIn {
+  animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* New Hero Section Full Background Setup */
+.home-hero-section {
+  @apply min-h-[75vh] flex items-center justify-start rounded-xl p-8 md:p-16 relative overflow-hidden bg-cover bg-center bg-no-repeat;
+  /* Replace this URL with your custom image path or local asset */
+  background-image: url('../assets/home.avif');
+}
+
+/* Subtle overlay ensuring high contrast and readability for text */
+/* Directional Gradient: Cream on the left, completely clear on the right */
+.home-hero-overlay {
+  @apply absolute inset-0 z-0;
+  background: linear-gradient(to right, rgba(250, 246, 240, 0.9) 0%, rgba(250, 246, 240, 0.4) 60%, rgba(250, 246, 240, 0) 100%);
+}
+
+/* Pushes content layers above the background image overlay */
+.home-content-wrapper {
+  @apply relative z-10 max-w-2xl space-y-8;
+}
+
+.home-title {
+  @apply text-5xl md:text-7xl font-bold text-brand-navy font-serif tracking-tight leading-[1.1];
+}
+
+.home-subtitle {
+  @apply text-lg md:text-xl text-brand-muted font-normal leading-relaxed;
+}
+
+.home-button-group {
+  @apply flex flex-wrap gap-4 pt-4;
+}

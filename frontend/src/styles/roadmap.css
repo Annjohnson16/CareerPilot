@@ -1,0 +1,57 @@
+
+
+@reference "./global.css";
+/* Roadmap Section Layout */
+.roadmap-container {
+  @apply max-w-4xl mx-auto py-6;
+}
+
+.roadmap-header-group {
+  @apply mb-10 text-center;
+}
+
+/* Form Styles */
+.form-card {
+  @apply bg-white border border-brand-navy/10 p-8 md:p-10 space-y-6 shadow-sm mb-12;
+}
+
+.form-grid {
+  @apply grid grid-cols-1 md:grid-cols-2 gap-6;
+}
+
+.form-field-full {
+  @apply flex flex-col md:col-span-2;
+}
+
+.form-field-half {
+  @apply flex flex-col;
+}
+
+.field-label {
+  @apply text-xs font-bold uppercase tracking-wider text-brand-navy mb-2;
+}
+
+.input-field {
+  @apply border border-brand-navy/20 p-3 outline-none bg-brand-bg/30 text-sm transition-all duration-200;
+}
+
+.input-field:focus {
+  @apply border-brand-navy ring-1 ring-brand-navy;
+}
+
+/* Output Display Box */
+.output-display-card {
+  @apply bg-white border border-brand-navy/10 p-8 md:p-10 shadow-sm transition-all duration-300;
+}
+
+.output-header {
+  @apply flex items-center justify-between border-b border-brand-navy/10 pb-4 mb-6;
+}
+
+.output-badge {
+  @apply text-xs bg-emerald-50 text-emerald-700 border border-emerald-200 px-2.5 py-1 font-semibold uppercase;
+}
+
+.output-text-content {
+  @apply text-brand-navy space-y-4 text-sm leading-relaxed whitespace-pre-wrap font-sans;
+}
