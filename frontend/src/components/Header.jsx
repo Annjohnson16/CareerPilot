@@ -33,8 +33,8 @@ export default function Header() {
         >
           RESOURCES
         </Link>
-        <button className="text-brand-muted/40 cursor-not-allowed border-none bg-transparent font-medium" disabled>PROJECTS</button>
-        <button className="text-brand-muted/40 cursor-not-allowed border-none bg-transparent font-medium" disabled>RESUME ANALYZER</button>
+        <button className="text-brand-muted/40 cursor-not-allowed border-none bg-transparent font-medium" disabled>TIMETABLE</button>
+        <button className="text-brand-muted/40 cursor-not-allowed border-none bg-transparent font-medium" disabled>PROGRESS TRACKER</button>
         <button className="text-brand-muted/40 cursor-not-allowed border-none bg-transparent font-medium" disabled>MOCK INTERVIEW</button>
       </nav>
 
