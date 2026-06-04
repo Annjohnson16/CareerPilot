@@ -1,20 +1,29 @@
-
-
 @reference "./global.css";
-/* Roadmap Section Layout */
+
+/* Outer Container Spacing */
 .roadmap-container {
   @apply max-w-4xl mx-auto py-6;
 }
 
+/* Top Branding Title Header Elements */
 .roadmap-header-group {
   @apply mb-10 text-center;
 }
 
-/* Form Styles */
+.roadmap-main-title {
+  @apply text-4xl font-bold font-serif text-brand-navy;
+}
+
+.roadmap-subtitle {
+  @apply text-brand-muted mt-2;
+}
+
+/* Main Interactive Form Card */
 .form-card {
   @apply bg-white border border-brand-navy/10 p-8 md:p-10 space-y-6 shadow-sm mb-12;
 }
 
+/* 2-Column Balanced Grid Blueprint */
 .form-grid {
   @apply grid grid-cols-1 md:grid-cols-2 gap-6;
 }
@@ -27,25 +36,48 @@
   @apply flex flex-col;
 }
 
+/* Label & Structural Input Controls */
 .field-label {
   @apply text-xs font-bold uppercase tracking-wider text-brand-navy mb-2;
 }
 
 .input-field {
-  @apply border border-brand-navy/20 p-3 outline-none bg-brand-bg/30 text-sm transition-all duration-200;
+  @apply border border-brand-navy/20 p-3 outline-none bg-brand-bg/30 text-sm transition-all duration-200 disabled:opacity-60;
 }
 
 .input-field:focus {
   @apply border-brand-navy ring-1 ring-brand-navy;
 }
 
-/* Output Display Box */
+/* Heavy Action Submit Buttons */
+.btn-submit {
+  @apply w-full bg-brand-navy text-white py-4 font-semibold text-sm tracking-wider uppercase hover:bg-opacity-90 transition-all duration-200 cursor-pointer disabled:opacity-50;
+}
+
+/* Processing Engine Async Spinner Elements */
+.loading-wrapper {
+  @apply text-center py-12 space-y-4;
+}
+
+.loading-spinner {
+  @apply animate-spin rounded-full h-10 w-10 border-b-2 border-brand-navy mx-auto;
+}
+
+.loading-text {
+  @apply text-sm font-medium text-brand-muted;
+}
+
+/* Beautiful LLM Response Box Visualization */
 .output-display-card {
   @apply bg-white border border-brand-navy/10 p-8 md:p-10 shadow-sm transition-all duration-300;
 }
 
 .output-header {
   @apply flex items-center justify-between border-b border-brand-navy/10 pb-4 mb-6;
+}
+
+.output-title {
+  @apply font-serif text-2xl font-bold text-brand-navy;
 }
 
 .output-badge {

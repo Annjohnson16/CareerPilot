@@ -1,34 +1,36 @@
 import React from 'react';
+import { HERO_CONTENT } from '../config/homeContent';
 import '../styles/home.css';
 
 export default function Home({ setCurrentPage }) {
+  const { title, subtitle, buttons } = HERO_CONTENT;
+
   return (
     <section className="home-hero-section animate-fadeIn">
-      
+      {/* Background Image Text Protection Overlay */}
       <div className="home-hero-overlay"></div>
 
-      {/* Main Left-Aligned Text Content Block */}
+      {/* Main Content Block */}
       <div className="home-content-wrapper">
         <h1 className="home-title">
-          LEARN SKILLS <br />THAT MATTER.
+          {title.highlight} <br /> {title.subtext}
         </h1>
+        
         <p className="home-subtitle">
-          Practical training to upgrade your career, confidence, and opportunities.
+          {subtitle}
         </p>
         
+        {/* Dynamic Optimized Button Group Loop */}
         <div className="home-button-group">
-          <button 
-            onClick={() => setCurrentPage('roadmap')} 
-            className="bg-brand-navy text-white px-8 py-4 text-sm font-semibold tracking-wider uppercase hover:bg-opacity-90 transition cursor-pointer border-none"
-          >
-            Get Started
-          </button>
-          <button 
-            onClick={() => setCurrentPage('roadmap')}
-            className="border border-brand-navy text-brand-navy bg-transparent px-8 py-4 text-sm font-semibold tracking-wider uppercase hover:bg-brand-navy hover:text-white transition cursor-pointer"
-          >
-            Start Free Trial
-          </button>
+          {buttons.map((btn) => (
+            <button 
+              key={btn.id}
+              onClick={() => setCurrentPage(btn.actionType)} 
+              className={btn.styleClass}
+            >
+              {btn.text}
+            </button>
+          ))}
         </div>
       </div>
     </section>
