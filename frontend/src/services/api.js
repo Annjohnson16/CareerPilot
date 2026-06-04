@@ -6,11 +6,13 @@ export const fetchCareerRoadmap = async (formData) => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(formData),
   });
+  if (!response.ok) throw new Error(`Server Error: ${response.status}`);
+  return await response.json();  // returns { session_id, roadmap }
+};
 
-  if (!response.ok) {
-    throw new Error(`Server Error: ${response.status}`);
-  }
-
+export const fetchResources = async (sessionId) => {
+  const response = await fetch(`${BASE_URL}/api/resources/${sessionId}/`);
+  if (!response.ok) throw new Error(`Server Error: ${response.status}`);
   const data = await response.json();
-  return data.roadmap;
+  return data.resources;
 };

@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ROADMAP_FIELDS } from '../config/formSchemas';
 import { fetchCareerRoadmap } from '../services/api';
 import '../styles/roadmap.css';
 
-export default function Roadmap() {
+export default function Roadmap({ setSessionId }) {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     goal: '',
     level: 'Beginner (No experience)',
@@ -13,7 +15,6 @@ export default function Roadmap() {
   });
   const [loading, setLoading] = useState(false);
   const [errorMsg, setErrorMsg] = useState('');
-  const [roadmapOutput, setRoadmapOutput] = useState('');
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.id]: e.target.value });
@@ -23,11 +24,11 @@ export default function Roadmap() {
     e.preventDefault();
     setLoading(true);
     setErrorMsg('');
-    setRoadmapOutput('');
 
     try {
-      const roadmap = await fetchCareerRoadmap(formData);
-      setRoadmapOutput(roadmap);
+      const data = await fetchCareerRoadmap(formData);
+      setSessionId(data.session_id);
+      navigate('/resources');
     } catch (err) {
       setErrorMsg("Failed to reach your Django app. Make sure it's running on port 8000!");
     } finally {
@@ -44,34 +45,32 @@ export default function Roadmap() {
 
       <form onSubmit={handleSubmit} className="form-card">
         <div className="form-grid">
-          
           <div className="form-field-full">
             <label className="field-label">What is your Career Goal?</label>
-            <input 
+            <input
               type="text" id="goal" required disabled={loading}
               value={formData.goal} onChange={handleChange}
-              placeholder="e.g., AI Engineer, Fullstack Developer" className="input-field"
+              placeholder="e.g., AI Engineer, Fullstack Developer"
+              className="input-field"
             />
           </div>
-
           {ROADMAP_FIELDS.map((field) => (
             <div key={field.id} className="form-field-half">
               <label className="field-label">{field.label}</label>
-              <select id={field.id} value={formData[field.id]} onChange={handleChange} disabled={loading} className="input-field">
+              <select
+                id={field.id} value={formData[field.id]}
+                onChange={handleChange} disabled={loading}
+                className="input-field"
+              >
                 {field.options.map((opt) => (
                   <option key={opt.value} value={opt.value}>{opt.label}</option>
                 ))}
               </select>
             </div>
           ))}
-          
         </div>
 
-        {errorMsg && (
-          <div className="form-error">
-            ⚠️ {errorMsg}
-          </div>
-        )}
+        {errorMsg && <div className="form-error">⚠️ {errorMsg}</div>}
 
         <button type="submit" disabled={loading} className="btn-submit">
           {loading ? 'Processing Requirements...' : 'Generate Custom Path'}
@@ -81,17 +80,7 @@ export default function Roadmap() {
       {loading && (
         <div className="loading-wrapper">
           <div className="loading-spinner"></div>
-          <p className="loading-text">Creating your roadmap..</p>
-        </div>
-      )}
-
-      {roadmapOutput && (
-        <div className="output-display-card">
-          <div className="output-header">
-            <h3 className="output-title">Your Generated Roadmap</h3>
-            
-          </div>
-          <div className="output-text-content">{roadmapOutput}</div>
+          <p className="loading-text">Creating your roadmap...</p>
         </div>
       )}
     </div>
