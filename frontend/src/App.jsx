@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Header from './components/Header';
 import Footer from './components/Footer';
+import NoSession from './components/NoSession';
 import Home from './pages/Home';
 import Roadmap from './pages/Roadmap';
 import Resources from './pages/Resources';
+import Timetable from './pages/Timetable';
 
 export default function App() {
   const [sessionId, setSessionId] = useState(null);
@@ -17,14 +19,8 @@ export default function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/roadmap" element={<Roadmap setSessionId={setSessionId} />} />
-            <Route
-              path="/resources"
-              element={
-                sessionId
-                  ? <Resources sessionId={sessionId} />
-                  : <Navigate to="/roadmap" replace />
-              }
-            />
+            <Route path="/resources" element={sessionId ? <Resources sessionId={sessionId} /> : <NoSession />} />
+            <Route path="/timetable" element={sessionId ? <Timetable sessionId={sessionId} /> : <NoSession />} />
           </Routes>
         </main>
         <Footer />

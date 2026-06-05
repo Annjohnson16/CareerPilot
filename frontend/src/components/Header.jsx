@@ -1,6 +1,14 @@
 import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 
+const NAV_LINKS = [
+  { to: '/roadmap', label: 'ROADMAP' },
+  { to: '/resources', label: 'RESOURCES' },
+  { to: '/timetable', label: 'TIMETABLE' },
+];
+
+const DISABLED_LINKS = [ 'PROGRESS TRACKER', 'MOCK INTERVIEW'];
+
 export default function Header() {
   const { pathname } = useLocation();
 
@@ -13,29 +21,23 @@ export default function Header() {
       </Link>
 
       <nav className="hidden md:flex items-center space-x-8 text-sm font-medium tracking-wide">
-        <Link
-          to="/roadmap"
-          className={`transition font-medium ${
-            pathname === '/roadmap'
-              ? 'text-brand-navy border-b border-brand-navy'
-              : 'text-brand-muted hover:opacity-70'
-          }`}
-        >
-          ROADMAP
-        </Link>
-        <Link
-          to="/resources"
-          className={`transition font-medium ${
-            pathname === '/resources'
-              ? 'text-brand-navy border-b border-brand-navy'
-              : 'text-brand-muted hover:opacity-70'
-          }`}
-        >
-          RESOURCES
-        </Link>
-        <button className="text-brand-muted/40 cursor-not-allowed border-none bg-transparent font-medium" disabled>TIMETABLE</button>
-        <button className="text-brand-muted/40 cursor-not-allowed border-none bg-transparent font-medium" disabled>PROGRESS TRACKER</button>
-        <button className="text-brand-muted/40 cursor-not-allowed border-none bg-transparent font-medium" disabled>MOCK INTERVIEW</button>
+        {NAV_LINKS.map(({ to, label }) => (
+          <Link
+            key={to} to={to}
+            className={`transition font-medium ${
+              pathname === to
+                ? 'text-brand-navy border-b border-brand-navy'
+                : 'text-brand-muted hover:opacity-70'
+            }`}
+          >
+            {label}
+          </Link>
+        ))}
+        {DISABLED_LINKS.map(label => (
+          <button key={label} disabled className="text-brand-muted/40 cursor-not-allowed border-none bg-transparent font-medium">
+            {label}
+          </button>
+        ))}
       </nav>
 
       <Link to="/roadmap">

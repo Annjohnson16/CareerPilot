@@ -1,93 +1,191 @@
 @reference "./global.css";
 
-/* Outer Container Spacing */
-.roadmap-container {
-  @apply max-w-4xl mx-auto py-6;
+/* Fade In Animation */
+.animate-fadeIn {
+  animation: fadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* Top Branding Title Header Elements */
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Page Container */
+.roadmap-container {
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 1.5rem 0;
+}
+
+/* Page Title Header */
 .roadmap-header-group {
-  @apply mb-10 text-center;
+  text-align: center;
+  margin-bottom: 2.5rem;
 }
 
 .roadmap-main-title {
-  @apply text-4xl font-bold font-serif text-brand-navy;
+  font-size: 2.25rem;
+  font-weight: 700;
+  font-family: var(--font-serif);
+  color: var(--color-brand-navy);
 }
 
 .roadmap-subtitle {
-  @apply text-brand-muted mt-2;
+  color: var(--color-brand-muted);
+  margin-top: 0.5rem;
 }
 
-/* Main Interactive Form Card */
+/* Form Card */
 .form-card {
-  @apply bg-white border border-brand-navy/10 p-8 md:p-10 space-y-6 shadow-sm mb-12;
+  background: white;
+  border: 1px solid rgba(11, 19, 37, 0.1);
+  padding: 2rem 2.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-bottom: 3rem;
 }
 
-/* 2-Column Balanced Grid Blueprint */
+/* 2 Column Grid */
 .form-grid {
-  @apply grid grid-cols-1 md:grid-cols-2 gap-6;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
 }
 
 .form-field-full {
-  @apply flex flex-col md:col-span-2;
+  display: flex;
+  flex-direction: column;
+  grid-column: span 2;
 }
 
 .form-field-half {
-  @apply flex flex-col;
+  display: flex;
+  flex-direction: column;
 }
 
-/* Label & Structural Input Controls */
+/* Labels and Inputs */
 .field-label {
-  @apply text-xs font-bold uppercase tracking-wider text-brand-navy mb-2;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--color-brand-navy);
+  margin-bottom: 0.5rem;
 }
 
 .input-field {
-  @apply border border-brand-navy/20 p-3 outline-none bg-brand-bg/30 text-sm transition-all duration-200 disabled:opacity-60;
+  border: 1px solid rgba(11, 19, 37, 0.2);
+  padding: 0.75rem;
+  outline: none;
+  background: rgba(250, 246, 240, 0.3);
+  font-size: 0.875rem;
+  transition: all 0.2s;
 }
 
 .input-field:focus {
-  @apply border-brand-navy ring-1 ring-brand-navy;
+  border-color: var(--color-brand-navy);
+  box-shadow: 0 0 0 1px var(--color-brand-navy);
 }
 
-/* Heavy Action Submit Buttons */
-/* Find this class in src/styles/roadmap.css and update it */
+.input-field:disabled {
+  opacity: 0.6;
+}
+
+/* Submit Button */
 .btn-submit {
-  /* CHANGE hover:bg-opacity-90 TO hover:bg-brand-navy/90 */
-  @apply w-full bg-brand-navy text-white py-4 font-semibold text-sm tracking-wider uppercase hover:bg-brand-navy/90 transition-all duration-200 cursor-pointer disabled:opacity-50;
+  width: 100%;
+  background: var(--color-brand-navy);
+  color: white;
+  padding: 1rem;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  border: none;
+  cursor: pointer;
+  transition: all 0.2s;
 }
 
-/* Processing Engine Async Spinner Elements */
+.btn-submit:hover {
+  opacity: 0.9;
+}
+
+.btn-submit:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Error Message */
+.form-error {
+  padding: 1rem;
+  background-color: #fef2f2;
+  border: 1px solid #fecaca;
+  color: #b91c1c;
+  font-size: 0.875rem;
+  font-weight: 500;
+  border-radius: 0.25rem;
+}
+
+/* Loading Spinner */
 .loading-wrapper {
-  @apply text-center py-12 space-y-4;
+  text-align: center;
+  padding: 3rem 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
 }
 
 .loading-spinner {
-  @apply animate-spin rounded-full h-10 w-10 border-b-2 border-brand-navy mx-auto;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 9999px;
+  border: 2px solid transparent;
+  border-bottom-color: var(--color-brand-navy);
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
 }
 
 .loading-text {
-  @apply text-sm font-medium text-brand-muted;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--color-brand-muted);
 }
 
-/* Beautiful LLM Response Box Visualization */
+/* Roadmap Output Card */
 .output-display-card {
-  @apply bg-white border border-brand-navy/10 p-8 md:p-10 shadow-sm transition-all duration-300;
+  background: white;
+  border: 1px solid rgba(11, 19, 37, 0.1);
+  padding: 2rem 2.5rem;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+  margin-top: 2rem;
 }
 
 .output-header {
-  @apply flex items-center justify-between border-b border-brand-navy/10 pb-4 mb-6;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(11, 19, 37, 0.1);
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
 }
 
 .output-title {
-  @apply font-serif text-2xl font-bold text-brand-navy;
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--color-brand-navy);
 }
-
-
 
 .output-text-content {
-  @apply text-brand-navy space-y-4 text-sm leading-relaxed whitespace-pre-wrap font-sans;
-}
-/* Add this to your src/styles/roadmap.css file */
-.form-error {
-  @apply p-4 bg-red-50 border border-red-200 text-red-700 text-sm font-medium rounded;
+  color: var(--color-brand-navy);
+  font-size: 0.875rem;
+  line-height: 1.75;
+  white-space: pre-wrap;
+  font-family: var(--font-sans);
 }
