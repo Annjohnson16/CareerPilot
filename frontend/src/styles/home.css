@@ -13,7 +13,7 @@
 /* Hero Section Container with Local Asset Mapping */
 .home-hero-section {
   @apply min-h-[75vh] flex items-center justify-start rounded-xl p-8 md:p-16 relative overflow-hidden bg-cover bg-center bg-no-repeat;
-  background-image: url('../assets/home.avif');
+  
 }
 
 /* Linear Overlay protecting Dark Text on the left while staying clear on the right */

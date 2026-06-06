@@ -10,12 +10,7 @@ export const HERO_CONTENT = {
       text: "Get Started",
       actionType: "roadmap", // Tells the component to switch to the roadmap page
       styleClass: "btn-primary"
-    },
-    {
-      id: "free-trial",
-      text: "Start Free Trial",
-      actionType: "roadmap",
-      styleClass: "btn-secondary"
     }
+    
   ]
 };
