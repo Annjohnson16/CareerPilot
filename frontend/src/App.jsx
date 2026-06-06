@@ -8,6 +8,7 @@ import Roadmap from './pages/Roadmap';
 import Resources from './pages/Resources';
 import Timetable from './pages/Timetable';
 import Progress from './pages/Progress';
+import Interview from './pages/Interview';
 
 export default function App() {
   const [sessionId, setSessionId] = useState(null);
@@ -23,6 +24,7 @@ export default function App() {
             <Route path="/resources" element={sessionId ? <Resources sessionId={sessionId} /> : <NoSession />} />
             <Route path="/timetable" element={sessionId ? <Timetable sessionId={sessionId} /> : <NoSession />} />
             <Route path="/progress" element={sessionId ? <Progress sessionId={sessionId} /> : <NoSession />} />
+            <Route path="/interview" element={sessionId ? <Interview sessionId={sessionId} /> : <NoSession />} />
           </Routes>
         </main>
         <Footer />

@@ -10,10 +10,7 @@ const request = async (endpoint, options = {}) => {
 };
 
 export const fetchCareerRoadmap = (formData) =>
-  request('/api/roadmap/', {
-    method: 'POST',
-    body: JSON.stringify(formData),
-  });
+  request('/api/roadmap/', { method: 'POST', body: JSON.stringify(formData) });
 
 export const fetchResources = async (sessionId) => {
   const data = await request(`/api/resources/${sessionId}/`);
@@ -23,12 +20,7 @@ export const fetchResources = async (sessionId) => {
 export const fetchTimetable = (sessionId, month, studyHours, preferredTime) =>
   request('/api/timetable/', {
     method: 'POST',
-    body: JSON.stringify({
-      session_id: sessionId,
-      month,
-      study_hours: studyHours,
-      preferred_time: preferredTime,
-    }),
+    body: JSON.stringify({ session_id: sessionId, month, study_hours: studyHours, preferred_time: preferredTime }),
   });
 
 export const fetchProgress = async (sessionId) => {
@@ -39,11 +31,23 @@ export const fetchProgress = async (sessionId) => {
 export const updateProgress = (sessionId, month, week, topic, completed) =>
   request('/api/progress/update/', {
     method: 'POST',
-    body: JSON.stringify({
-      session_id: sessionId,
-      month,
-      week,
-      topic,
-      completed,
-    }),
+    body: JSON.stringify({ session_id: sessionId, month, week, topic, completed }),
   });
+
+export const fetchInterviewTopics = (sessionId) =>
+  request(`/api/interview/topics/${sessionId}/`);
+
+export const startInterview = (sessionId) =>
+  request('/api/interview/start/', {
+    method: 'POST',
+    body: JSON.stringify({ session_id: sessionId }),
+  });
+
+export const submitInterview = (sessionId, questions, answers) =>
+  request('/api/interview/submit/', {
+    method: 'POST',
+    body: JSON.stringify({ session_id: sessionId, questions, answers }),
+  });
+
+export const fetchInterviewHistory = (sessionId) =>
+  request(`/api/interview/history/${sessionId}/`);
