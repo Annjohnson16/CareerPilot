@@ -63,3 +63,20 @@ class Progress(models.Model):
 
     def __str__(self):
         return f"Session {self.session_id} — M{self.month} W{self.week} — {self.topic[:30]}"
+
+class Interview(models.Model):
+    session = models.ForeignKey(
+        RoadmapSession,
+        on_delete=models.CASCADE,
+        related_name='interviews'
+    )
+    topics_covered = models.JSONField()
+    questions = models.JSONField()
+    answers = models.JSONField()
+    score = models.IntegerField()
+    weak_areas = models.JSONField()
+    feedback = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f"Session {self.session_id} — Score {self.score}/5"

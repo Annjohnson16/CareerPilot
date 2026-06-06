@@ -3,8 +3,9 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from .gemini_service import generate_roadmap
-from .models import RoadmapSession, MonthlyResource, Timetable,Progress
+from .models import RoadmapSession, MonthlyResource, Timetable,Progress, Interview
 from .timetable_service import generate_timetable
+from .interview_service import generate_questions, evaluate_answers
 
 
 @api_view(["POST"])
@@ -187,3 +188,120 @@ def update_progress(request):
         "topic": topic,
         "completed": progress.completed
     })
+
+@api_view(["GET"])
+def get_interview_topics(request, session_id):
+    """Get completed topics for this session to use in interview"""
+    try:
+        session = RoadmapSession.objects.get(id=session_id)
+    except RoadmapSession.DoesNotExist:
+        return Response({"error": "Session not found"}, status=404)
+
+    completed = Progress.objects.filter(
+        session=session,
+        completed=True
+    ).values_list('topic', flat=True)
+
+    if not completed:
+        return Response({
+            "error": "No completed topics found. Complete some topics in Progress Tracker first."
+        }, status=404)
+
+    return Response({
+        "goal": session.goal,
+        "level": session.level,
+        "completed_topics": list(completed)
+    })
+
+
+@api_view(["POST"])
+def start_interview(request):
+    """Generate 5 questions based on completed topics"""
+    session_id = request.data.get('session_id')
+
+    try:
+        session = RoadmapSession.objects.get(id=session_id)
+    except RoadmapSession.DoesNotExist:
+        return Response({"error": "Session not found"}, status=404)
+
+    completed_topics = list(
+        Progress.objects.filter(session=session, completed=True)
+        .values_list('topic', flat=True)
+    )
+
+    if not completed_topics:
+        return Response({
+            "error": "No completed topics found."
+        }, status=400)
+
+    try:
+        questions = generate_questions(session.goal, session.level, completed_topics)
+    except Exception as e:
+        return Response({"error": f"Failed to generate questions: {str(e)}"}, status=500)
+
+    return Response({
+        "questions": questions,
+        "completed_topics": completed_topics
+    })
+
+
+@api_view(["POST"])
+def submit_interview(request):
+    """Evaluate answers and save result"""
+    session_id = request.data.get('session_id')
+    questions = request.data.get('questions', [])
+    answers = request.data.get('answers', {})
+
+    try:
+        session = RoadmapSession.objects.get(id=session_id)
+    except RoadmapSession.DoesNotExist:
+        return Response({"error": "Session not found"}, status=404)
+
+    try:
+        result = evaluate_answers(session.goal, session.level, questions, answers)
+    except Exception as e:
+        return Response({"error": f"Failed to evaluate answers: {str(e)}"}, status=500)
+
+    # Save to DB
+    interview = Interview.objects.create(
+        session=session,
+        topics_covered=[q['topic'] for q in questions],
+        questions=questions,
+        answers=answers,
+        score=result['score'],
+        weak_areas=result['weak_areas'],
+        feedback=result['overall_feedback']
+    )
+
+    return Response({
+        "interview_id": interview.id,
+        "score": result['score'],
+        "score_label": result['score_label'],
+        "overall_feedback": result['overall_feedback'],
+        "weak_areas": result['weak_areas'],
+        "strong_areas": result['strong_areas']
+    })
+
+
+@api_view(["GET"])
+def get_interview_history(request, session_id):
+    """Get past interview results"""
+    try:
+        session = RoadmapSession.objects.get(id=session_id)
+    except RoadmapSession.DoesNotExist:
+        return Response({"error": "Session not found"}, status=404)
+
+    interviews = Interview.objects.filter(session=session).order_by('-created_at')
+    data = [
+        {
+            "id": i.id,
+            "score": i.score,
+            "feedback": i.feedback,
+            "weak_areas": i.weak_areas,
+            "topics_covered": i.topics_covered,
+            "created_at": i.created_at.strftime('%Y-%m-%d %H:%M')
+        }
+        for i in interviews
+    ]
+
+    return Response({"interviews": data})
