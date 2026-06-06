@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 
 from .gemini_service import generate_roadmap
-from .models import RoadmapSession, MonthlyResource, Timetable
+from .models import RoadmapSession, MonthlyResource, Timetable,Progress
 from .timetable_service import generate_timetable
 
 
@@ -122,4 +122,68 @@ def get_timetable(request):
         "preferred_time": preferred_time,
         "schedule": schedule,
         "cached": False
+    })
+
+@api_view(["GET"])
+def get_progress(request, session_id):
+    try:
+        session = RoadmapSession.objects.get(id=session_id)
+    except RoadmapSession.DoesNotExist:
+        return Response({"error": "Session not found"}, status=404)
+
+    timetables = Timetable.objects.filter(session=session)
+    if not timetables.exists():
+        return Response({"error": "No timetable found. Generate a timetable first."}, status=404)
+
+    progress_records = Progress.objects.filter(session=session)
+    completed_set = set(
+        (p.month, p.week, p.topic) for p in progress_records if p.completed
+    )
+
+    result = {}
+    for timetable in timetables:
+        month = timetable.month
+        result[month] = {}
+        for week_data in timetable.schedule:
+            week = week_data['week']
+            topics = []
+            for day, cell in week_data['days'].items():
+                topic = cell['topic']
+                if topic not in ['Review & Practice', 'Rest or Revision', 'Revision & Problem Solving']:
+                    if topic not in [t['topic'] for t in topics]:
+                        topics.append({
+                            "topic": topic,
+                            "completed": (month, week, topic) in completed_set
+                        })
+            result[month][week] = topics
+
+    return Response({"progress": result})
+
+
+@api_view(["POST"])
+def update_progress(request):
+    session_id = request.data.get('session_id')
+    month = request.data.get('month')
+    week = request.data.get('week')
+    topic = request.data.get('topic')
+    completed = request.data.get('completed', True)
+
+    try:
+        session = RoadmapSession.objects.get(id=session_id)
+    except RoadmapSession.DoesNotExist:
+        return Response({"error": "Session not found"}, status=404)
+
+    progress, _ = Progress.objects.update_or_create(
+        session=session,
+        month=month,
+        week=week,
+        topic=topic,
+        defaults={'completed': completed}
+    )
+
+    return Response({
+        "month": month,
+        "week": week,
+        "topic": topic,
+        "completed": progress.completed
     })

@@ -45,3 +45,21 @@ class Timetable(models.Model):
 
     def __str__(self):
         return f"Session {self.session_id} — Month {self.month}"
+
+class Progress(models.Model):
+    session = models.ForeignKey(
+        RoadmapSession,
+        on_delete=models.CASCADE,
+        related_name='progress'
+    )
+    month = models.IntegerField()
+    week = models.IntegerField()
+    topic = models.CharField(max_length=500)
+    completed = models.BooleanField(default=False)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    class Meta:
+        unique_together = ('session', 'month', 'week', 'topic')
+
+    def __str__(self):
+        return f"Session {self.session_id} — M{self.month} W{self.week} — {self.topic[:30]}"
