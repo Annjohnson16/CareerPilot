@@ -5,9 +5,10 @@ const NAV_LINKS = [
   { to: '/roadmap', label: 'ROADMAP' },
   { to: '/resources', label: 'RESOURCES' },
   { to: '/timetable', label: 'TIMETABLE' },
+  { to: '/progress', label: 'PROGRESS TRACKER' },
 ];
 
-const DISABLED_LINKS = [ 'PROGRESS TRACKER', 'MOCK INTERVIEW'];
+const DISABLED_LINKS = [ 'MOCK INTERVIEW'];
 
 export default function Header() {
   const { pathname } = useLocation();

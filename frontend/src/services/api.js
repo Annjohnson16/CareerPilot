@@ -30,3 +30,20 @@ export const fetchTimetable = (sessionId, month, studyHours, preferredTime) =>
       preferred_time: preferredTime,
     }),
   });
+
+export const fetchProgress = async (sessionId) => {
+  const data = await request(`/api/progress/${sessionId}/`);
+  return data.progress;
+};
+
+export const updateProgress = (sessionId, month, week, topic, completed) =>
+  request('/api/progress/update/', {
+    method: 'POST',
+    body: JSON.stringify({
+      session_id: sessionId,
+      month,
+      week,
+      topic,
+      completed,
+    }),
+  });

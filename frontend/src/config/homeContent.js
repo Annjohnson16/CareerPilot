@@ -3,7 +3,7 @@ export const HERO_CONTENT = {
     highlight: "LEARN SKILLS",
     subtext: "THAT MATTER."
   },
-  subtitle: "Practical training to upgrade your career, confidence, and opportunities through tailored AI deployment tracks.",
+  subtitle: "Practical training to upgrade your career, confidence, and opportunities.",
   buttons: [
     {
       id: "get-started",
