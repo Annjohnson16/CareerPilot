@@ -30,53 +30,131 @@ CareerPilot is an AI-powered career planning web app that helps users create per
 - Gunicorn
 
 ## Project Structure
+
+```text
 CareerPilot/
+│
 ├── backend/
 │   ├── career/
 │   ├── config/
 │   ├── manage.py
 │   ├── requirements.txt
 │   └── .env.example
+│
 ├── frontend/
 │   ├── src/
 │   ├── package.json
 │   └── .env.example
+│
+├── .gitignore
 └── README.md
+```
 
-#Backend Setup
+---
+
+## Backend Setup
+
+### 1. Navigate to Backend
+
+```bash
 cd backend
-python -m venv venv
-venv\Scripts\activate
-pip install -r requirements.txt
+```
 
-Create a .env file in the backend folder
+### 2. Create Virtual Environment
+
+```bash
+python -m venv venv
+```
+
+### 3. Activate Virtual Environment
+
+#### Windows
+
+```bash
+venv\Scripts\activate
+```
+
+#### Linux/Mac
+
+```bash
+source venv/bin/activate
+```
+
+### 4. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+### 5. Configure Environment Variables
+
+Create a `.env` file inside the backend folder:
+
+```env
 GEMINI_API_KEY=your_key_here
+
 DB_NAME=your_db_name
 DB_USER=your_db_user
 DB_PASSWORD=your_db_password
 DB_HOST=localhost
 DB_PORT=5432
+
 SECRET_KEY=your_django_secret_key
+```
 
-Run migrations and start the server
+### 6. Run Migrations
+
+```bash
 python manage.py migrate
+```
+
+### 7. Start Backend Server
+
+```bash
 python manage.py runserver
+```
 
-Backend URL
+Backend runs at:
+
+```text
 http://127.0.0.1:8000
+```
 
-#Frontend Setup
+---
+
+## Frontend Setup
+
+### 1. Navigate to Frontend
+
+```bash
 cd frontend
+```
+
+### 2. Install Dependencies
+
+```bash
 npm install
+```
 
-Create a .env file in the frontend folder
+### 3. Configure Environment Variables
+
+Create a `.env` file:
+
+```env
 VITE_API_BASE_URL=http://127.0.0.1:8000
+```
 
-Start the frontend
+### 4. Start Frontend
+
+```bash
 npm run dev
+```
 
-Frontend URL
+Frontend runs at:
+
+```text
 http://localhost:5173
+```
 
 ## API Endpoints
 All backend endpoints are prefixed with `/api`.
