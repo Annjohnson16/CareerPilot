@@ -171,11 +171,15 @@ All backend endpoints are prefixed with `/api`.
 | POST | `/api/interview/submit/` | Submits answers and returns AI feedback |
 | GET | `/api/interview/history/<session_id>/` | Fetches previous interview results |
 
-#Deployment Notes
-Configure all backend environment variables before deployment.
-Add the frontend URL to CORS_ALLOWED_ORIGINS in Django settings.
-Add the backend domain to ALLOWED_HOSTS.
-Set VITE_API_BASE_URL to the deployed backend URL in the frontend environment.
+## Deployment Notes
+
+Before deploying the application, ensure the following configurations are completed:
+
+
+- Configure all required environment variables in the backend `.env` file.
+- Add your frontend domain to `CORS_ALLOWED_ORIGINS` in Django settings.
+- Add your backend domain to `ALLOWED_HOSTS`.
+
 
 
 
