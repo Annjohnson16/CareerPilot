@@ -90,5 +90,5 @@ STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
-    "https://career-pilot-kohl-theta.vercel.app/",
+    "https://career-pilot-kohl-theta.vercel.app",
 ]
