@@ -8,10 +8,11 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+
 
 
 def generate_roadmap(data):
+  client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
     prompt = f"""
 You are an expert career mentor. Generate a structured career roadmap.
 

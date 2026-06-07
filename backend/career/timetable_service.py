@@ -6,10 +6,12 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+
 
 
 def generate_timetable(roadmap_text, month, study_hours, preferred_time):
+  client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+
     prompt = f"""You are an expert study planner. Return ONLY a raw JSON array. No markdown. No backticks. No explanation. Just the JSON.
 
 [

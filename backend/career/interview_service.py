@@ -5,10 +5,11 @@ from google import genai
 from dotenv import load_dotenv
 
 load_dotenv()
-client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
 
 
 def generate_questions(goal, level, completed_topics):
+  client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+
     topics_str = ', '.join(completed_topics[:15])  # max 15 topics
 
     prompt = f"""You are a technical interviewer. Return ONLY a raw JSON array. No markdown. No backticks. No explanation.
@@ -46,6 +47,8 @@ Rules:
 
 
 def evaluate_answers(goal, level, questions, answers):
+  client = genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
+
     qa_pairs = '\n'.join([
         f"Q{i+1} (Topic: {q['topic']}): {q['question']}\nAnswer: {answers.get(str(i+1), 'No answer provided')}"
         for i, q in enumerate(questions)
