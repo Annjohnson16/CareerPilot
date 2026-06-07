@@ -11,7 +11,7 @@ SECRET_KEY = os.getenv('SECRET_KEY', 'django-insecure-m5!)qgb$4^)lgg@q()@!*h=35(
 
 DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'careerpilot-production-2fd6.up.railway.app']
 
 INSTALLED_APPS = [
     'django.contrib.admin',
