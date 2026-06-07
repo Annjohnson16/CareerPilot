@@ -13,11 +13,12 @@ def roadmap(request):
     try:
         result = generate_roadmap(request.data)
     except Exception as e:
+        import traceback
+        print("ROADMAP ERROR:", traceback.format_exc())
         return Response(
             {"error": f"Gemini error: {str(e)}"},
             status=status.HTTP_500_INTERNAL_SERVER_ERROR
         )
-
     session = RoadmapSession.objects.create(
         goal=request.data.get('goal', ''),
         level=request.data.get('level', ''),
